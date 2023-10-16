@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8728446047477769681}
   - component: {fileID: 8989719135867793131}
   - component: {fileID: -8182990117398114506}
+  - component: {fileID: 8300641859910414281}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -101,6 +102,8 @@ MonoBehaviour:
   speed: 5
   bullet: {fileID: -8182990117398114506}
   destroyTimer: 0.5
+  playerPrefab: {fileID: 8189957787561817328, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
+  enemy2: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
 --- !u!50 &-8182990117398114506
 Rigidbody2D:
   serializedVersion: 4
@@ -116,9 +119,25 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &8300641859910414281
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636806453683988373}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0

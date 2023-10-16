@@ -6,10 +6,14 @@ public class Enemy2Controller : MonoBehaviour
 {
     [SerializeField]    
     private Rigidbody2D rigidBody;
-    [SerializeField]
-    private LayerMask enemyLayer;
+
     [SerializeField]
     private Transform rotationPoint;
+    
+    [SerializeField]
+    private int enemy2Health;
+    
+    
     // Cannon Shoting    
     public Bullet prefab;
     [SerializeField]
@@ -26,9 +30,9 @@ public class Enemy2Controller : MonoBehaviour
     private Transform LeftshootingPoint;
 
     //Player
-    private Transform player;
+    private Transform playerTransform;
     [SerializeField]
-    private LayerMask playerLayer;
+    private GameObject player;
 
 
     [SerializeField]
@@ -44,37 +48,42 @@ public class Enemy2Controller : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log(player.layer);
+        Debug.Log(gameObject.layer);
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         RightcanShoot = true;
         LeftcanShoot = true;
     }
 
     void Update() 
     {
-        if (Vector2.Distance(transform.position, player.position) <= maxDetectionDistance)
+        if (enemy2Health <= 0)
         {
-            targetRotation = Quaternion.LookRotation(Vector3.forward, player.position - rotationPoint.position);
+            Destroy(gameObject);
+        }
+        if (CanSeePlayer() && Vector2.Distance(transform.position, playerTransform.position) <= maxDetectionDistance)
+        {
+            targetRotation = Quaternion.LookRotation(Vector3.forward, playerTransform.position - rotationPoint.position);
 
             transform.rotation = Quaternion.LerpUnclamped(rotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             if (RightcanShoot)
             {
-                Rightshooting();
+                Shooting(RightbulletSpeed,RightshootingPoint);
                 RightcanShoot = false;
-                StartCoroutine(RightShootingCooldown());
+                StartCoroutine(ShootingCooldown("Right",RightshootingInterval));
             }
             if (LeftcanShoot)
             {
-                Leftshooting();
+                Shooting(LeftbulletSpeed,LeftshootingPoint);
                 LeftcanShoot = false;
-                StartCoroutine(LeftShootingCooldown());
+                StartCoroutine(ShootingCooldown("Left",LeftshootingInterval));
             }
         }
     }
-
     bool CanSeePlayer()
     {
-        if (playerLayer == enemyLayer)
+        if (player.layer == gameObject.layer)
         {
             return true;
         }
@@ -82,27 +91,28 @@ public class Enemy2Controller : MonoBehaviour
         return false;
     }
 
-    void Rightshooting()
+    public void loseHealth(int losingHealth)
     {
-        Bullet Rightbullet = Instantiate(prefab, RightshootingPoint.position, RightshootingPoint.rotation);
-        Rightbullet.speed = RightbulletSpeed;
-    }
-    void Leftshooting()
-    {
-        Bullet Leftbullet = Instantiate(prefab, LeftshootingPoint.position, LeftshootingPoint.rotation);
-        Leftbullet.speed = LeftbulletSpeed;
+        enemy2Health -= losingHealth;
     }
 
-    IEnumerator RightShootingCooldown()
+    void Shooting(float bulletSpeed, Transform shootingPoint)
     {
-        yield return new WaitForSeconds(RightshootingInterval);
-        RightcanShoot = true;
-    }    
-    
-    IEnumerator LeftShootingCooldown()
-    {
-        yield return new WaitForSeconds(LeftshootingInterval);
-        LeftcanShoot = true;
+        Bullet bullet = Instantiate(prefab, shootingPoint.position, shootingPoint.rotation);
+        bullet.speed = bulletSpeed;
     }
+
+    IEnumerator ShootingCooldown(string shootingFrom, float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        if (shootingFrom == "Left")
+        {
+            LeftcanShoot = true;
+        }
+        else
+        {
+            RightcanShoot = true;
+        }
+    }    
 }
 
