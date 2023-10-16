@@ -2641,6 +2641,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1774973827569163609, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2772133625284272900, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: m_Name
       value: Tank
@@ -2745,6 +2749,10 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 8597092702067489663, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8614397676089413724, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
