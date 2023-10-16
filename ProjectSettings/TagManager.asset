@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Piso
+  - Bosque
+  - Agua
   layers:
   - Default
   - TransparentFX
@@ -38,6 +41,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Piso
+    uniqueID: 4191968685
+    locked: 0
+  - name: Agua
+    uniqueID: 4263309771
+    locked: 0
+  - name: Player
+    uniqueID: 2017417929
+    locked: 0
+  - name: Bosque
+    uniqueID: 210031181
+    locked: 0
+  - name: Ladrillos
+    uniqueID: 2863773853
+    locked: 0
+  - name: Limites
+    uniqueID: 1673721351
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
