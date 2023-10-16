@@ -38,24 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Piso
-    uniqueID: 1031592897
-    locked: 0
-  - name: Agua
-    uniqueID: 404466599
-    locked: 0
-  - name: Player
-    uniqueID: 2025082687
-    locked: 0
-  - name: Bosque
-    uniqueID: 1818241835
-    locked: 0
-  - name: Ladrillos
-    uniqueID: 1555958359
-    locked: 0
-  - name: Limites
-    uniqueID: 3692934839
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
