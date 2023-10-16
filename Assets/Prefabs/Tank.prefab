@@ -127,6 +127,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7289106085200072837}
   - component: {fileID: 1774973827569163609}
+  - component: {fileID: 8189957787561817328}
+  - component: {fileID: 9028102076958124703}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -143,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 2772133625284272900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.498, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2098706394308396656}
@@ -203,6 +205,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8189957787561817328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772133625284272900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 324b0ef1d686db04dac0f5f1f14af1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
+  rotationSpeed: 100
+  rigidBody: {fileID: 9028102076958124703}
+  bulletSpeed: 10
+  prefab: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
+  shotingPoint: {fileID: 0}
+--- !u!50 &9028102076958124703
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772133625284272900}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5493011089192572160
 GameObject:
   m_ObjectHideFlags: 0
