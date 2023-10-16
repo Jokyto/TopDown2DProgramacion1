@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  rotationSpeed: 100
+  rotationSpeed: 200
   rigidBody: {fileID: 9028102076958124703}
   bulletSpeed: 10
   prefab: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
