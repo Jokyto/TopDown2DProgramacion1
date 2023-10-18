@@ -4,52 +4,32 @@ using UnityEngine;
 
 public class Enemy2Controller : MonoBehaviour
 {
-    [SerializeField]    
-    private Rigidbody2D rigidBody;
-
-    [SerializeField]
-    private Transform rotationPoint;
+    [SerializeField]private Rigidbody2D rigidBody;
+    [SerializeField]private Transform rotationPoint;
+    [SerializeField]private int enemy2Health;
     
-    [SerializeField]
-    private int enemy2Health;
-    
-    
-    // Cannon Shoting    
-    public Bullet prefab;
-    [SerializeField]
-    private float RightbulletSpeed;
-    [SerializeField]
-    private float RightshootingInterval;
-    [SerializeField]
-    private Transform RightshootingPoint;
-    [SerializeField]
-    private float LeftbulletSpeed;
-    [SerializeField]
-    private float LeftshootingInterval;
-    [SerializeField]
-    private Transform LeftshootingPoint;
+    public Bullet prefab; // Cannon Shoting   
 
-    //Player
-    private Transform playerTransform;
-    [SerializeField]
-    private GameObject player;
+    [SerializeField]private float RightbulletSpeed;
+    [SerializeField]private float RightshootingInterval;
+    [SerializeField]private Transform RightshootingPoint;
 
+    [SerializeField]private float LeftbulletSpeed;
+    [SerializeField]private float LeftshootingInterval;
+    [SerializeField]private Transform LeftshootingPoint;
 
-    [SerializeField]
-    private float maxDetectionDistance;
+    private Transform playerTransform; //Player
+    [SerializeField]private GameObject player;
 
-    [SerializeField]
-    private float rotationSpeed;
+    [SerializeField]private float maxDetectionDistance;
+    [SerializeField]private float rotationSpeed;
 
     private bool RightcanShoot;
     private bool LeftcanShoot;
-
     private Quaternion targetRotation;
 
     void Start()
     {
-        Debug.Log(player.layer);
-        Debug.Log(gameObject.layer);
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         RightcanShoot = true;
         LeftcanShoot = true;
@@ -61,10 +41,10 @@ public class Enemy2Controller : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         if (CanSeePlayer() && Vector2.Distance(transform.position, playerTransform.position) <= maxDetectionDistance)
         {
             targetRotation = Quaternion.LookRotation(Vector3.forward, playerTransform.position - rotationPoint.position);
-
             transform.rotation = Quaternion.LerpUnclamped(rotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             if (RightcanShoot)
@@ -73,6 +53,7 @@ public class Enemy2Controller : MonoBehaviour
                 RightcanShoot = false;
                 StartCoroutine(ShootingCooldown("Right",RightshootingInterval));
             }
+
             if (LeftcanShoot)
             {
                 Shooting(LeftbulletSpeed,LeftshootingPoint);
@@ -105,10 +86,12 @@ public class Enemy2Controller : MonoBehaviour
     IEnumerator ShootingCooldown(string shootingFrom, float interval)
     {
         yield return new WaitForSeconds(interval);
+
         if (shootingFrom == "Left")
         {
             LeftcanShoot = true;
         }
+
         else
         {
             RightcanShoot = true;
