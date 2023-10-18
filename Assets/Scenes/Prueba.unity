@@ -251,6 +251,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8202889600116228992, guid: 5f918427d7c14964b86163fb4522427c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f918427d7c14964b86163fb4522427c, type: 3}
 --- !u!4 &320658182 stripped
@@ -18999,11 +19003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289106085200072837, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7289106085200072837, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.02
+      value: -1.24
       objectReference: {fileID: 0}
     - target: {fileID: 7289106085200072837, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19155,6 +19159,10 @@ PrefabInstance:
     - target: {fileID: 180878746814634092, guid: 7b49ed84b89614d4f91a10034500925e, type: 3}
       propertyPath: m_Name
       value: Engine (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 180878746814634092, guid: 7b49ed84b89614d4f91a10034500925e, type: 3}
+      propertyPath: m_TagString
+      value: Engine
       objectReference: {fileID: 0}
     - target: {fileID: 3897869554180497177, guid: 7b49ed84b89614d4f91a10034500925e, type: 3}
       propertyPath: m_RootOrder
@@ -19396,6 +19404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy1
       objectReference: {fileID: 0}
+    - target: {fileID: 8202889600116228992, guid: 5f918427d7c14964b86163fb4522427c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f918427d7c14964b86163fb4522427c, type: 3}
 --- !u!1001 &7120767374562886529
@@ -19459,6 +19471,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3071661421375296774, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: m_Name
+      value: Enemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071661421375296774, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
+      propertyPath: m_TagString
       value: Enemy2
       objectReference: {fileID: 0}
     - target: {fileID: 5315991435607743202, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}

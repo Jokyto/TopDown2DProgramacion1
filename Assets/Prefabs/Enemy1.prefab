@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 6590524823460383611}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -681,6 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   visionRange: 5
+  enemy1Health: 0
   isMovingForward: 1
   playerTransform: {fileID: 0}
   player: {fileID: 0}

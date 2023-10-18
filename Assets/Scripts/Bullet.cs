@@ -32,7 +32,8 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(enemy1.gameObject);
+        Debug.Log(collision.gameObject.tag);
+        Debug.Log(enemy1.gameObject.tag);
         if (collision.rigidbody != null)
         {
             if (collision.rigidbody.name == playerPrefab.name)
