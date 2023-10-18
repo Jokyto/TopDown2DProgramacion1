@@ -910,8 +910,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4007207227961319959, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007207227961319959, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
+      propertyPath: m_ChunkCullingBounds.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007207227961319959, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007207227961319959, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
       propertyPath: m_DetectChunkCullingBounds
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4007207227961320168, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
       propertyPath: m_Size.x
@@ -928,6 +940,10 @@ PrefabInstance:
     - target: {fileID: 4007207227961320168, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
       propertyPath: m_Origin.y
       value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007207227961320168, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
+      propertyPath: m_TileOrientation
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4007207227961320168, guid: d7d0d0746d2c7f24fb6a1261ca25b12d, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -18826,8 +18842,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6373484408c7eb488d5b5f979ba918b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
   visionRange: 5
+  isMovingForward: 1
+  playerTransform: {fileID: 483535527}
+  player: {fileID: 1414851300}
 --- !u!1001 &1334137730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19060,8 +19079,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6373484408c7eb488d5b5f979ba918b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
   visionRange: 5
+  isMovingForward: 1
+  playerTransform: {fileID: 483535527}
+  player: {fileID: 1414851300}
 --- !u!1001 &1546809916
 PrefabInstance:
   m_ObjectHideFlags: 0
