@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float destroyTimer = 5f;
     public PlayerController playerPrefab;
     public Enemy2Controller enemy2;
+    public Enemy1Controller enemy1;
     private Grid grid;
     void Start()
     {
@@ -31,6 +32,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(enemy1.gameObject);
         if (collision.rigidbody != null)
         {
             if (collision.rigidbody.name == playerPrefab.name)
@@ -38,10 +40,15 @@ public class Bullet : MonoBehaviour
                 Debug.Log("Player got hit by enemy at " + collision.transform.position);
                 collision.gameObject.GetComponent<PlayerController>().loseHealth(1);
             }
-            else if (collision.rigidbody.name == enemy2.name)
+            else if (collision.gameObject.tag == enemy2.gameObject.tag)
             {
                 Debug.Log("Enemy2 got hit by player at " + collision.transform.position);
                 collision.gameObject.GetComponent<Enemy2Controller>().loseHealth(1);
+            }
+            else if (collision.gameObject.tag == enemy1.gameObject.tag)
+            {
+                Debug.Log("Enemy1 got hit by player at " + collision.transform.position);
+                collision.gameObject.GetComponent<Enemy1Controller>().loseHealth(1);
             }
         }
         else if (collision.gameObject.name == "Ladrillos")

@@ -7,6 +7,9 @@ TagManager:
   - Piso
   - Bosque
   - Agua
+  - Engine
+  - Enemy1
+  - Enemy2
   layers:
   - Default
   - TransparentFX

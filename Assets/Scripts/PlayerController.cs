@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     //Map collision
     [SerializeField]
     private TilemapCollider2D aquaPrefab;
+    private bool isLosingHealth = false;
 
     //SceneLoader
     public LoadScene sceneLoader;
@@ -46,8 +47,12 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0) 
         {
             Destroy(gameObject);
-            sceneLoader.LoadGivenScene("Prueba2");
+            sceneLoader.LoadGivenScene("Prueba");
         }
+    }
+    void FixedUpdate() {
+        rigidBody.MovePosition(rigidBody.position +  movementSpeed * Time.fixedDeltaTime * vertical * (Vector2)(Quaternion.Euler(0f, 0f, rigidBody.rotation) * Vector2.up));
+        rigidBody.MoveRotation(rigidBody.rotation - rotationSpeed * Time.fixedDeltaTime * horizontal);
     }
     bool CanShoot()
     {
@@ -58,17 +63,22 @@ public class PlayerController : MonoBehaviour
 
         return false;
     }
-    void FixedUpdate() {
-        rigidBody.MovePosition(rigidBody.position +  movementSpeed * Time.fixedDeltaTime * vertical * (Vector2)(Quaternion.Euler(0f, 0f, rigidBody.rotation) * Vector2.up));
-        rigidBody.MoveRotation(rigidBody.rotation - rotationSpeed * Time.fixedDeltaTime * horizontal);
-    }
-
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log("The player collide with " + collider.gameObject.tag);
+        if (collider.gameObject.tag == "Engine")
+        {
+            healHealth(1);
+            Destroy(collider.gameObject);
+        }
+    } 
     void OnTriggerStay2D(Collider2D collider)
     {
-        Debug.Log(collider);
-        if (collider.gameObject.name == "Agua")
+        Debug.Log("The player is colliding with " + collider.gameObject.name);
+        if (collider.gameObject.name == "Agua" && !isLosingHealth)
         {
-            loseHealth(1);
+            isLosingHealth = true;
+            StartCoroutine(TileDamageCooldown(5));
         }
         if (collider.gameObject.name == "Bosque")
         {
@@ -77,15 +87,36 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D collider)
     {
+        Debug.Log("The player collided with " + collider.gameObject.name);
         if (collider.gameObject.name == "Bosque")
         {
             gameObject.layer = 0;
         }
+        if (collider.gameObject.name == "Agua" && isLosingHealth)
+        {
+            isLosingHealth = false;
+        }
     }
-
     public void loseHealth(int losingHealth)
     {
+        if (playerHealth - losingHealth <= 0)
+        {
+            Debug.Log("The player is dead.");
+        }
         playerHealth -= losingHealth;
+    }
+    public void healHealth(int healHealth)
+    {
+        playerHealth += healHealth;
+    }
+    private IEnumerator TileDamageCooldown(float interval)
+    {
+        while (isLosingHealth)
+        {
+            loseHealth(1);
+            Debug.Log("Losing health: " + playerHealth);
+            yield return new WaitForSeconds(interval);
+        }
     }
 }
 
