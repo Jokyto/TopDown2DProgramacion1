@@ -9,10 +9,10 @@ public class Bullet : MonoBehaviour
     public PlayerController playerPrefab;
     public Enemy2Controller enemy2;
     public Enemy1Controller enemy1;
-    private Grid grid;
+    private Tilemap bricks;
     void Start()
     {
-        grid = FindObjectOfType<Grid>();
+        bricks = GameObject.Find("Ladrillos").GetComponent<Tilemap>();
     }
     void FixedUpdate()
     {
@@ -54,40 +54,9 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.name == "Ladrillos")
         {
-            Vector3 hitPosition = gameObject.transform.position;
-
-            Tilemap closestTilemap = null;
-            Vector3Int closestCell = Vector3Int.zero;
-            float closestDistance = float.MaxValue;
-
-            Tilemap[] tilemaps = grid.GetComponentsInChildren<Tilemap>();
-            foreach (Tilemap tilemap in tilemaps)
-            {
-                if (tilemap.name == "Ladrillos")
-                {
-                    BoundsInt bounds = tilemap.cellBounds;
-                    for (int x = bounds.x; x < bounds.x + bounds.size.x; x++)
-                    {
-                        for (int y = bounds.y; y < bounds.y + bounds.size.y; y++)
-                        {
-                            Vector3Int cellPosition = new Vector3Int(x, y, 0);
-                            Vector3 tileCenter = tilemap.GetCellCenterWorld(cellPosition);
-                            float distance = Vector3.Distance(hitPosition, tileCenter);
-
-                            if (distance < closestDistance)
-                            {
-                                closestDistance = distance;
-                                closestTilemap = tilemap;
-                                closestCell = cellPosition;
-                            }
-                        }
-                    }
-                }
-            }
-            if (closestTilemap != null)
-            {
-                closestTilemap.SetTile(closestCell, null);
-            }
+            Vector3 hitPosition = collision.GetContact(0).point;
+            Vector3Int cellPosition = bricks.WorldToCell(Vector3Int.FloorToInt(hitPosition));
+            bricks.SetTile(cellPosition,null);
         }
         Destroy(gameObject);
     }
