@@ -39,11 +39,13 @@ public class Enemy2Controller : MonoBehaviour
     {
         if (enemy2Health <= 0)
         {
+            Debug.Log("Enemigo Eliminado");
             Destroy(gameObject);
         }
 
         if (CanSeePlayer() && Vector2.Distance(transform.position, playerTransform.position) <= maxDetectionDistance)
         {
+            Debug.Log("Te esta viendo el enemigo");
             targetRotation = Quaternion.LookRotation(Vector3.forward, playerTransform.position - rotationPoint.position);
             transform.rotation = Quaternion.LerpUnclamped(rotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 

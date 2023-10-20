@@ -254,7 +254,7 @@ MonoBehaviour:
   rotationSpeed: 200
   rigidBody: {fileID: 9028102076958124703}
   playerHealth: 10
-  bulletSpeed: 20
+  bulletSpeed: 10
   bulletPrefab: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
   shotingPoint: {fileID: 7215330576620258894}
   aquaPrefab: {fileID: 0}

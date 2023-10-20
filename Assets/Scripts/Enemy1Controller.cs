@@ -8,11 +8,14 @@ public class Enemy1Controller : MonoBehaviour
     [SerializeField] private float speed = 2.0f; // Velocidad de movimiento del enemigo.
     [SerializeField] private float visionRange = 6.0f; // Rango de visi�n del enemigo.
     [SerializeField] private int enemy1Health;
-    [SerializeField] private bool isMovingForward = true; // Indica si el enemigo se est� moviendo hacia adelante o hacia atr�s.
+
+    private bool isMovingForward = true; // Indica si el enemigo se est� moviendo hacia adelante o hacia atr�s.
 
     [SerializeField] private Transform playerTransform; 
     [SerializeField] private GameObject player;
+
     private bool isCollisioning = false;
+
     private void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform; // Encuentra el jugador por su etiqueta.
@@ -22,19 +25,23 @@ public class Enemy1Controller : MonoBehaviour
     {
         if (enemy1Health <= 0)
         {
+            Debug.Log("Enemigo Eliminado");
             Destroy(gameObject);
         }
 
         if (CanSeePlayer() && Vector3.Distance(transform.position, playerTransform.position) < visionRange) // El jugador est� dentro del rango de visi�n del enemigo, as� que persigue al jugador.
         {
+            Debug.Log("Te esta viendo el enemigo");
             transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
         }
+
         else
         {
             if (isMovingForward)// El jugador no est� en el rango de visi�n, por lo que sigue el patr�n de movimiento.
             {
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
             }
+
             else
             {
                 transform.Translate(-Vector3.forward * speed * Time.deltaTime);
@@ -45,6 +52,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             isMovingForward = false;
         }
+
         else if (transform.position.z <= 0.0f)
         {
             isMovingForward = true;
@@ -61,13 +69,13 @@ public class Enemy1Controller : MonoBehaviour
         return false;
     }
     //To damage the player
+
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.rigidbody != null)
         {
             if (collision.rigidbody.name == player.name && !isCollisioning)
             {
-                Debug.Log("The Enemy1 is collisioning with " + collision.rigidbody.name);
                 isCollisioning = true;
                 StartCoroutine(DamageCooldown(collision.gameObject.GetComponent<PlayerController>(),3));
             }
@@ -81,11 +89,11 @@ public class Enemy1Controller : MonoBehaviour
         {
             if (collision.rigidbody.name == player.name)
             {
-                Debug.Log("The Enemy1 collided with " + collision.rigidbody.name);
                 isCollisioning = false;
             }
         }
     }
+
     public void loseHealth(int losingHealth)
     {
         enemy1Health -= losingHealth;
@@ -97,7 +105,6 @@ public class Enemy1Controller : MonoBehaviour
         while (isCollisioning)
         {
             gameObject.loseHealth(1);
-            Debug.Log("Player got hit by enemy1.");
             yield return new WaitForSeconds(interval);
         }
     }

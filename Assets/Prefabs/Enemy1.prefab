@@ -680,9 +680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  visionRange: 5
+  visionRange: 7
   enemy1Health: 0
-  isMovingForward: 1
   playerTransform: {fileID: 0}
   player: {fileID: 0}
 --- !u!1 &8536754988647070254
