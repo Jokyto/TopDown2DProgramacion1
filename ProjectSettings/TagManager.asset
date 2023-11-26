@@ -47,6 +47,9 @@ TagManager:
   - name: Piso
     uniqueID: 4191968685
     locked: 0
+  - name: Hielo
+    uniqueID: 2340843315
+    locked: 0
   - name: Agua
     uniqueID: 4263309771
     locked: 0
