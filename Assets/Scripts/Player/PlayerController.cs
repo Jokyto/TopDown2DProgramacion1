@@ -6,12 +6,15 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Settings")]
     //Player
     [SerializeField]private float movementSpeed;
     [SerializeField]private float rotationSpeed;
     [SerializeField]private Rigidbody2D rigidBody;
     [SerializeField]private int playerHealth;
+    [SerializeField]private int playerPoints;
 
+    [Header("Shooting Settings")]
     //Cannon Shoting
     [SerializeField]private float bulletSpeed;
 
@@ -20,10 +23,12 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
+    [Header("Map Collision")]
     //Map collision
     [SerializeField]private TilemapCollider2D aquaPrefab;
     private bool isLosingHealth = false;
 
+    [Header("Scene Loader")]
     //SceneLoader
     public LoadScene sceneLoader;
 
@@ -68,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.tag == "Engine")
         {
             Debug.Log("Agarraste Vida.");
-            healHealth(1);
+            HealHealth(1);
             Destroy(collider.gameObject);
         }
     } 
@@ -103,7 +108,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void loseHealth(int losingHealth)
+    public int GetLife()
+    {
+        return playerHealth;
+    }
+
+    public void LoseHealth(int losingHealth)
     {
         if (playerHealth - losingHealth <= 0)
         {
@@ -112,18 +122,28 @@ public class PlayerController : MonoBehaviour
 
         playerHealth -= losingHealth;
     }
-
-    public void healHealth(int healHealth)
+    public void HealHealth(int healHealth)
     {
         Debug.Log("Te curastes.");
         playerHealth += healHealth;
     }
 
+    public int GetPoints()
+    {
+        return playerPoints;
+    }
+
+    public void AddPoint(int points)
+    {
+        playerPoints += points;
+    }
+    
     private IEnumerator TileDamageCooldown(float interval)
     {
         while (isLosingHealth)
         {
-            loseHealth(1);
+            AddPoint(1);
+            LoseHealth(1);
             Debug.Log("Perdiste vida: " + playerHealth);
             yield return new WaitForSeconds(interval);
         }

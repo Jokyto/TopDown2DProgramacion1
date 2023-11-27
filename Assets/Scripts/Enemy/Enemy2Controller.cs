@@ -41,6 +41,7 @@ public class Enemy2Controller : MonoBehaviour
         {
             Debug.Log("Enemigo Eliminado");
             Destroy(gameObject);
+            player.GetComponent<PlayerController>().AddPoint(20);
         }
 
         if (CanSeePlayer() && Vector2.Distance(transform.position, playerTransform.position) <= maxDetectionDistance)

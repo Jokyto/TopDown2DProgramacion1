@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
             if (collision.rigidbody.name == playerPrefab.name)
             {
                 Debug.Log("Perdiste vida");
-                collision.gameObject.GetComponent<PlayerController>().loseHealth(1);
+                collision.gameObject.GetComponent<PlayerController>().LoseHealth(1);
             }
 
             else if (collision.gameObject.tag == enemy2.gameObject.tag)
