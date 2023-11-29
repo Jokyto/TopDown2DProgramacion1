@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     [Header("Player information")]
     public PlayerController player;
 
+    void Awake()
+    {
+        ResumeGame();
+    }
     void Update()
     {
         playerHealth.text = player.GetLife().ToString();
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour
         gameOnPause = true;
         Time.timeScale = 0f;
         menu.SetActive(true);
+        player.SetCanShoot(false);
     }
 
     public void ResumeGame()
@@ -44,5 +49,6 @@ public class GameManager : MonoBehaviour
         gameOnPause = false;
         Time.timeScale = 1f;
         menu.SetActive(false);
+        player.SetCanShoot(true);
     }
 }

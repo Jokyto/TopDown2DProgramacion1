@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private float rotationSpeed;
     [SerializeField]private int playerHealth;
     [SerializeField]private int playerPoints;
+    [SerializeField]private bool canShoot;
 
     [Header("Shooting Settings")]
     //Cannon Shoting
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        canShoot = true;
     }
 
     void Update() 
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     bool CanShoot()
     {
-        if (gameObject.layer == 0)
+        if (gameObject.layer == 0 && canShoot)
         {
             return true;
         }
@@ -150,6 +152,11 @@ public class PlayerController : MonoBehaviour
     {
         playerPoints += points;
     }
+    public void SetCanShoot(bool SetBool)
+    {
+        canShoot = SetBool;
+    }
+
     private IEnumerator TileDamageCooldown(float interval)
     {
         while (isLosingHealth)
