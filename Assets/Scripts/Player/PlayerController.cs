@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Tilemaps;
+using System.Threading;
+using System.ComponentModel;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     //Player
+
+    private Animator animator;
+    private Rigidbody2D rigidBody;
+    private bool isDead;
+
+    private float horizontal;
+    private float vertical;
+
     [SerializeField]private float movementSpeed;
     [SerializeField]private float rotationSpeed;
-    [SerializeField]private Rigidbody2D rigidBody;
     [SerializeField]private int playerHealth;
     [SerializeField]private int playerPoints;
 
@@ -20,8 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public Bullet bulletPrefab;
     public Transform shotingPoint;
-    private float horizontal;
-    private float vertical;
+    
 
     [Header("Map Collision")]
     //Map collision
@@ -31,6 +39,13 @@ public class PlayerController : MonoBehaviour
     [Header("Scene Loader")]
     //SceneLoader
     public LoadScene sceneLoader;
+
+
+    void Awake()
+    {
+        rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
 
     void Update() 
     {
@@ -45,16 +60,27 @@ public class PlayerController : MonoBehaviour
 
         if (playerHealth <= 0) 
         {
-            Debug.Log("Perdistes");
-            Destroy(gameObject);
-            sceneLoader.LoadGivenScene("Prueba");
+            animator.SetBool("IsDead",true);
+            isDead = true;
+
+           /* if (isDead == true)
+            {
+                Destroy(gameObject);
+                sceneLoader.LoadGivenScene("Prueba");
+            }*/
         }
     }
 
-    void FixedUpdate() 
+    private void FixedUpdate()
     {
         rigidBody.MovePosition(rigidBody.position +  movementSpeed * Time.fixedDeltaTime * vertical * (Vector2)(Quaternion.Euler(0f, 0f, rigidBody.rotation) * Vector2.up));
         rigidBody.MoveRotation(rigidBody.rotation - rotationSpeed * Time.fixedDeltaTime * horizontal);
+    }
+
+    private void LateUpdate()
+    {
+        animator.SetFloat("horizontal", horizontal);
+        animator.SetFloat("vertical", vertical);
     }
 
     bool CanShoot()
@@ -72,25 +98,21 @@ public class PlayerController : MonoBehaviour
 
         if (collider.gameObject.tag == "Engine")
         {
-            Debug.Log("Agarraste Vida.");
             HealHealth(1);
             Destroy(collider.gameObject);
         }
     } 
-
     void OnTriggerStay2D(Collider2D collider)
     {
 
         if (collider.gameObject.name == "Agua" && !isLosingHealth)
         {
             isLosingHealth = true;
-            Debug.Log("Te estas ahogando.");
             StartCoroutine(TileDamageCooldown(6));
         }
 
         if (collider.gameObject.name == "Bosque")
         {
-            Debug.Log("Estas escondido");
             gameObject.layer = 6;
         }
     }
@@ -112,39 +134,28 @@ public class PlayerController : MonoBehaviour
     {
         return playerHealth;
     }
-
     public void LoseHealth(int losingHealth)
     {
-        if (playerHealth - losingHealth <= 0)
-        {
-            Debug.Log("Perdistes.");
-        }
-
         playerHealth -= losingHealth;
     }
     public void HealHealth(int healHealth)
     {
-        Debug.Log("Te curastes.");
         playerHealth += healHealth;
     }
-
     public int GetPoints()
     {
         return playerPoints;
     }
-
     public void AddPoint(int points)
     {
         playerPoints += points;
     }
-    
     private IEnumerator TileDamageCooldown(float interval)
     {
         while (isLosingHealth)
         {
             AddPoint(1);
             LoseHealth(1);
-            Debug.Log("Perdiste vida: " + playerHealth);
             yield return new WaitForSeconds(interval);
         }
     }
