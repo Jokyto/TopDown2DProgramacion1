@@ -7,4 +7,8 @@ public class LoadScene : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
