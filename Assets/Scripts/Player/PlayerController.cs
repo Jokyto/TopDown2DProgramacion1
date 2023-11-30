@@ -5,40 +5,37 @@ using Unity.VisualScripting;
 using UnityEngine.Tilemaps;
 using System.Threading;
 using System.ComponentModel;
+using UnityEditorInternal;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [Header("Player Settings")]
-    //Player
+    [Header("Player Settings")] //Player
 
     private Animator animator;
     private Rigidbody2D rigidBody;
 
-    private int playerHealth = 10;
-
     [SerializeField] private int playerPoints;
+    [SerializeField] private int playerHealth;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
     private float horizontal;
     private float vertical;
 
-    [Header("Shooting Settings")]
-    //Cannon Shoting
-    [SerializeField]private bool canShoot;
-    [SerializeField]private float bulletSpeed;
+    [Header("Shooting Settings")] //Cannon Shoting
 
+    [SerializeField]private float bulletSpeed;
+    private bool canShoot;
     public Bullet bulletPrefab;
     public Transform shotingPoint;
     
 
-    [Header("Map Collision")]
-    //Map collision
+    [Header("Map Collision")] //Map collision
+
     [SerializeField]private TilemapCollider2D aquaPrefab;
     private bool isLosingHealth = false;
 
-    [Header("Scene Loader")]
-    //SceneLoader
+    [Header("Scene Loader")] //SceneLoader
     public LoadScene sceneLoader;
 
 
@@ -47,10 +44,6 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         canShoot = true;
-
-        animator.SetBool("vivo", true);
-        animator.SetBool("muerto", false);
-
     }
 
     void Update()
@@ -63,25 +56,26 @@ public class PlayerController : MonoBehaviour
             Bullet bullet = Instantiate(bulletPrefab, shotingPoint.position, shotingPoint.rotation);
             bullet.speed = bulletSpeed;
         }
-
-        if (playerHealth <= 0)
-        {
-            Debug.Log($"{playerHealth}");
-            animator.SetBool("vivo",false);
-        }
-
     }
 
     private void FixedUpdate()
     {
         rigidBody.MovePosition(rigidBody.position +  movementSpeed * Time.fixedDeltaTime * vertical * (Vector2)(Quaternion.Euler(0f, 0f, rigidBody.rotation) * Vector2.up));
         rigidBody.MoveRotation(rigidBody.rotation - rotationSpeed * Time.fixedDeltaTime * horizontal);
+    }
 
+    private void LateUpdate()
+    {
         if (playerHealth <= 0)
         {
-            Debug.Log($"{playerHealth}");
-            animator.SetBool("vivo", false);
-            animator.SetBool("muerto", true);
+            animator.SetFloat("Muerto", 3);
+            animator.SetFloat("Vivo", 3);
+            movementSpeed = 0;
+        }
+
+        else
+        {
+            animator.SetFloat("Vivo", 1);
         }
     }
 

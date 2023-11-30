@@ -33952,7 +33952,7 @@ PrefabInstance:
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 1414851303}
+      objectReference: {fileID: 0}
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: shootingInterval
       value: 4
@@ -34291,7 +34291,7 @@ PrefabInstance:
       objectReference: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
     - target: {fileID: 8189957787561817328, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: playerHealth
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8189957787561817328, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
       propertyPath: shotingPoint
@@ -34366,7 +34366,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2772133625284272900, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
   m_PrefabInstance: {fileID: 1334137730}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1414851303 stripped
+--- !u!114 &1414851306 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8189957787561817328, guid: 1134c751f4036be439990ebc8d821a8d, type: 3}
   m_PrefabInstance: {fileID: 1334137730}
@@ -34833,7 +34833,7 @@ PrefabInstance:
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 1414851303}
+      objectReference: {fileID: 0}
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: shootingInterval
       value: 4
@@ -35491,7 +35491,7 @@ PrefabInstance:
     - target: {fileID: 5268358960935527729, guid: d3d3c612a0ea6b0478c9bc33ebadf379, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1414851303}
+      objectReference: {fileID: 1414851306}
     - target: {fileID: 5268358960935527729, guid: d3d3c612a0ea6b0478c9bc33ebadf379, type: 3}
       propertyPath: playerHealth
       value: 
@@ -35769,7 +35769,7 @@ PrefabInstance:
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 1414851303}
+      objectReference: {fileID: 0}
     - target: {fileID: 8894190518431781212, guid: 5328a6c877dc5c54ca6aa4be779df941, type: 3}
       propertyPath: shootingInterval
       value: 4
