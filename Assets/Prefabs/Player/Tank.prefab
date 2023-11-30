@@ -133,10 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324b0ef1d686db04dac0f5f1f14af1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 200
   playerHealth: 10
   playerPoints: 0
+  movementSpeed: 3
+  rotationSpeed: 200
+  canShoot: 0
   bulletSpeed: 10
   bulletPrefab: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
   shotingPoint: {fileID: 7215330576620258894}

@@ -8,24 +8,24 @@ using System.ComponentModel;
 
 public class PlayerController : MonoBehaviour
 {
+
     [Header("Player Settings")]
     //Player
 
     private Animator animator;
     private Rigidbody2D rigidBody;
-    private bool isDead;
 
+    private int playerHealth = 10;
+
+    [SerializeField] private int playerPoints;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float rotationSpeed;
     private float horizontal;
     private float vertical;
 
-    [SerializeField]private float movementSpeed;
-    [SerializeField]private float rotationSpeed;
-    [SerializeField]private int playerHealth;
-    [SerializeField]private int playerPoints;
-    [SerializeField]private bool canShoot;
-
     [Header("Shooting Settings")]
     //Cannon Shoting
+    [SerializeField]private bool canShoot;
     [SerializeField]private float bulletSpeed;
 
     public Bullet bulletPrefab;
@@ -47,9 +47,13 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         canShoot = true;
+
+        animator.SetBool("vivo", true);
+        animator.SetBool("muerto", false);
+
     }
 
-    void Update() 
+    void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
@@ -60,30 +64,27 @@ public class PlayerController : MonoBehaviour
             bullet.speed = bulletSpeed;
         }
 
-        if (playerHealth <= 0) 
+        if (playerHealth <= 0)
         {
-            animator.SetBool("IsDead",true);
-            isDead = true;
-
-           /* if (isDead == true)
-            {
-                Destroy(gameObject);
-                sceneLoader.LoadGivenScene("Prueba");
-            }*/
+            Debug.Log($"{playerHealth}");
+            animator.SetBool("vivo",false);
         }
+
     }
 
     private void FixedUpdate()
     {
         rigidBody.MovePosition(rigidBody.position +  movementSpeed * Time.fixedDeltaTime * vertical * (Vector2)(Quaternion.Euler(0f, 0f, rigidBody.rotation) * Vector2.up));
         rigidBody.MoveRotation(rigidBody.rotation - rotationSpeed * Time.fixedDeltaTime * horizontal);
+
+        if (playerHealth <= 0)
+        {
+            Debug.Log($"{playerHealth}");
+            animator.SetBool("vivo", false);
+            animator.SetBool("muerto", true);
+        }
     }
 
-    private void LateUpdate()
-    {
-        animator.SetFloat("horizontal", horizontal);
-        animator.SetFloat("vertical", vertical);
-    }
 
     bool CanShoot()
     {

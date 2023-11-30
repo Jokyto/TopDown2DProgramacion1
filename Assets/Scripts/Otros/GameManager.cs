@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+
     }
 
     public void PauseGame()
