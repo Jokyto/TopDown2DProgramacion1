@@ -11,29 +11,30 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")] //Player
-
-    private Animator animator;
     private Rigidbody2D rigidBody;
-
+    private float horizontal;
+    private float vertical;
     [SerializeField] private int playerPoints;
     [SerializeField] private int playerHealth;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
-    private float horizontal;
-    private float vertical;
 
     [Header("Shooting Settings")] //Cannon Shoting
-
-    [SerializeField]private float bulletSpeed;
     private bool canShoot;
     public Bullet bulletPrefab;
     public Transform shotingPoint;
-    
+    [SerializeField]private float bulletSpeed;
 
     [Header("Map Collision")] //Map collision
-
-    [SerializeField]private TilemapCollider2D aquaPrefab;
     private bool isLosingHealth = false;
+    [SerializeField]private TilemapCollider2D aquaPrefab;
+
+    [Header("Animations")]
+    private Animator animator;
+
+    [Header("Audio")]
+    private AudioSource audioSource;
+    [SerializeField] AudioClip OnDeath;
 
     [Header("Scene Loader")] //SceneLoader
     public LoadScene sceneLoader;
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         canShoot = true;
     }
 
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Muerto", 3);
             animator.SetFloat("Vivo", 3);
             movementSpeed = 0;
+            audioSource.PlayOneShot(OnDeath);
         }
 
         else
