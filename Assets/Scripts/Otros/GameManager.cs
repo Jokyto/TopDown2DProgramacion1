@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool gameOnPause = false;
     public GameObject menu;
+    public GameObject controls;
     public TextMeshProUGUI playerHealth;
     public TextMeshProUGUI playerPoints;
+    public LoadScene sceneLoader;
     [Header("Player information")]
     public PlayerController player;
 
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameOnPause)
+            if (gameOnPause && menu.activeSelf)
             {
                 ResumeGame();
             }
@@ -34,22 +36,24 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
-
     }
 
     public void PauseGame()
     {
         gameOnPause = true;
         Time.timeScale = 0f;
-        menu.SetActive(true);
         player.SetCanShoot(false);
+        if (!controls.activeSelf)
+        {
+            menu.SetActive(true);
+        }
     }
 
     public void ResumeGame()
     {
         gameOnPause = false;
         Time.timeScale = 1f;
-        menu.SetActive(false);
         player.SetCanShoot(true);
+        menu.SetActive(false);
     }
 }

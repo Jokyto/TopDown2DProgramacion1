@@ -23,6 +23,7 @@ public class Enemy2Controller : MonoBehaviour
 
     [SerializeField]private float maxDetectionDistance;
     [SerializeField]private float rotationSpeed;
+    [SerializeField] public GameManager gameManager;
 
     private bool RightcanShoot;
     private bool LeftcanShoot;

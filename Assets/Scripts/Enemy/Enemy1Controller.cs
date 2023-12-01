@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Enemy1Controller : MonoBehaviour
 
     [SerializeField] private Transform playerTransform; 
     [SerializeField] private GameObject player;
+
+    [SerializeField] public GameManager gameManager;
 
     private bool isCollisioning = false;
 

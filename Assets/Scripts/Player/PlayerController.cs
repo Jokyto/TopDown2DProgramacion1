@@ -70,10 +70,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerHealth <= 0)
         {
-            animator.SetFloat("Muerto", 3);
-            animator.SetFloat("Vivo", 3);
             movementSpeed = 0;
-            audioSource.PlayOneShot(OnDeath);
+            StartCoroutine(OnDie());
         }
 
         else
@@ -82,6 +80,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        Destroy(gameObject);
+        sceneLoader.LoadGivenScene("Derrota");
+    }
 
     bool CanShoot()
     {
@@ -96,6 +99,10 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
 
+        if (collider.gameObject.tag == "Victory")
+        {
+            sceneLoader.LoadGivenScene("Victoria");
+        }
         if (collider.gameObject.tag == "Engine")
         {
             HealHealth(1);
@@ -163,6 +170,14 @@ public class PlayerController : MonoBehaviour
             LoseHealth(1);
             yield return new WaitForSeconds(interval);
         }
+    }
+    private IEnumerator OnDie()
+    {
+        animator.SetFloat("Muerto", 3);
+        animator.SetFloat("Vivo", 3);
+        audioSource.PlayOneShot(OnDeath);
+        yield return new WaitForSeconds(1);
+        Die();
     }
 }
 

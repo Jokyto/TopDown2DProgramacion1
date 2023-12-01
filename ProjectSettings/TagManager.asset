@@ -10,6 +10,7 @@ TagManager:
   - Engine
   - Enemy1
   - Enemy2
+  - Victory
   layers:
   - Default
   - TransparentFX
