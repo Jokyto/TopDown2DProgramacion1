@@ -71,6 +71,9 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0)
         {
             movementSpeed = 0;
+            animator.SetFloat("Muerto", 3);
+            animator.SetFloat("Vivo", 3);
+            audioSource.PlayOneShot(OnDeath);
             StartCoroutine(OnDie());
         }
 
@@ -173,9 +176,6 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator OnDie()
     {
-        animator.SetFloat("Muerto", 3);
-        animator.SetFloat("Vivo", 3);
-        audioSource.PlayOneShot(OnDeath);
         yield return new WaitForSeconds(1);
         Die();
     }
