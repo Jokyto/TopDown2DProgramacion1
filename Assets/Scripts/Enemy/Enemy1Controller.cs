@@ -30,7 +30,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             Debug.Log("Enemigo Eliminado");
             Destroy(gameObject);
-            player.GetComponent<PlayerController>().AddPoint(5);
+            /*player.GetComponent<PlayerController>().AddPoint(5);*/
         }
 
         if (CanSeePlayer() && Vector3.Distance(transform.position, playerTransform.position) < visionRange) // El jugador est� dentro del rango de visi�n del enemigo, as� que persigue al jugador.

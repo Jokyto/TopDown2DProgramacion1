@@ -29,12 +29,15 @@ public class PlayerController : MonoBehaviour
     private bool isLosingHealth = false;
     [SerializeField]private TilemapCollider2D aquaPrefab;
 
-    [Header("Animations")]
+    [Header("Animations")] //Animations
     private Animator animator;
 
     [Header("Audio")]
     private AudioSource audioSource;
     [SerializeField] AudioClip OnDeath;
+    [SerializeField] AudioClip Shoot;
+    [SerializeField] AudioClip Object;
+    [SerializeField] AudioClip Win;
 
     [Header("Scene Loader")] //SceneLoader
     public LoadScene sceneLoader;
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             Bullet bullet = Instantiate(bulletPrefab, shotingPoint.position, shotingPoint.rotation);
             bullet.speed = bulletSpeed;
+            audioSource.PlayOneShot(Shoot);
         }
     }
 
@@ -71,9 +75,6 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0)
         {
             movementSpeed = 0;
-            animator.SetFloat("Muerto", 3);
-            animator.SetFloat("Vivo", 3);
-            audioSource.PlayOneShot(OnDeath);
             StartCoroutine(OnDie());
         }
 
@@ -104,11 +105,13 @@ public class PlayerController : MonoBehaviour
 
         if (collider.gameObject.tag == "Victory")
         {
+            audioSource.PlayOneShot(Win);
             sceneLoader.LoadGivenScene("Victoria");
         }
         if (collider.gameObject.tag == "Engine")
         {
             HealHealth(1);
+            audioSource.PlayOneShot(Object);
             Destroy(collider.gameObject);
         }
     } 
@@ -176,6 +179,9 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator OnDie()
     {
+        animator.SetFloat("Muerto", 3);
+        animator.SetFloat("Vivo", 3);
+        audioSource.PlayOneShot(OnDeath);
         yield return new WaitForSeconds(1);
         Die();
     }
