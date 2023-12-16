@@ -17,7 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerPoints;
     [SerializeField] private int playerHealth;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float previousMovementSpeed;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private float previousRotationSpeed;
+    [SerializeField] private bool isInvulnerable = false;
+    [SerializeField] private bool hasInvulnerability = true;
 
     [Header("Shooting Settings")] //Cannon Shoting
     private bool canShoot;
@@ -41,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Scene Loader")] //SceneLoader
     public LoadScene sceneLoader;
+    [Header("Game Manager")] //SceneLoader
+    [SerializeField] GameManager gameManager;
 
 
     void Awake()
@@ -61,6 +67,11 @@ public class PlayerController : MonoBehaviour
             Bullet bullet = Instantiate(bulletPrefab, shotingPoint.position, shotingPoint.rotation);
             bullet.speed = bulletSpeed;
             audioSource.PlayOneShot(Shoot);
+        }
+        if (hasInvulnerability && Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(Invulnerable());
+            StartCoroutine(InvulnerabilityTimer());
         }
     }
 
@@ -92,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     bool CanShoot()
     {
-        if (gameObject.layer == 0 && canShoot)
+        if (((gameObject.layer == 0) || (gameObject.layer == 13)) && canShoot)
         {
             return true;
         }
@@ -102,44 +113,85 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-
-        if (collider.gameObject.tag == "Victory")
+        //<-----------------Consumable Timer------------------>
+        if (collider.gameObject.layer == 7)
         {
-            audioSource.PlayOneShot(Win);
-            sceneLoader.LoadGivenScene("Victoria");
+            gameManager.SetTimerMinutes(1);
+            Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "Engine")
+        //<-----------------Consumable Points----------------->
+        if (collider.gameObject.layer == 8)
+        {
+            AddPoint(10);
+            Destroy(collider.gameObject);
+        }
+        //<---------------Consumable CanonSpeed-------------->
+        if (collider.gameObject.layer == 9)
+        {
+            bulletSpeed += 10;
+            Destroy(collider.gameObject);
+        }
+        //<---------------Consumable TankSpeed--------------->
+        if (collider.gameObject.layer == 10)
+        {
+            movementSpeed += 5;
+            Destroy(collider.gameObject);
+        }
+        //<-----------------Consumable Engine---------------->
+        if (collider.gameObject.layer == 11)
         {
             HealHealth(1);
             audioSource.PlayOneShot(Object);
             Destroy(collider.gameObject);
         }
+        
+        //<------------------Win condition------------------->
+        if (collider.gameObject.layer == 12)
+        {
+            audioSource.PlayOneShot(Win);
+            sceneLoader.LoadGivenScene("Victoria");
+        }
+        
+        //<------------------Colliding Ice------------------->
+        if (collider.gameObject.layer == 14)
+        {
+            previousMovementSpeed = movementSpeed;
+            movementSpeed = 1.5f;
+        }
+
     } 
     void OnTriggerStay2D(Collider2D collider)
     {
-
-        if (collider.gameObject.name == "Agua" && !isLosingHealth)
+        //<------------------------Colliding with Water-------------------------->
+        if (collider.gameObject.layer == 4 && !isLosingHealth && GetLife() > 0)
         {
             isLosingHealth = true;
             StartCoroutine(TileDamageCooldown(6));
         }
-
-        if (collider.gameObject.name == "Bosque")
+        //<------------------------Colliding with Forest------------------------->
+        if (collider.gameObject.layer == 6)
         {
             gameObject.layer = 6;
         }
     }
     void OnTriggerExit2D(Collider2D collider)
     {
+        //<------------------------Colliding with Water-------------------------->
+        if (collider.gameObject.layer == 4 && isLosingHealth)
+        {
+            isLosingHealth = false;
+        }
 
-        if (collider.gameObject.name == "Bosque")
+        //<------------------------Colliding with Forest------------------------->
+        if (collider.gameObject.layer == 6)
         {
             gameObject.layer = 0;
         }
-
-        if (collider.gameObject.name == "Agua" && isLosingHealth)
+        
+        //<------------------------Colliding with Ice---------------------------->
+        if (collider.gameObject.layer == 14)
         {
-            isLosingHealth = false;
+            movementSpeed = previousMovementSpeed;
         }
     }
 
@@ -168,6 +220,7 @@ public class PlayerController : MonoBehaviour
         canShoot = SetBool;
     }
 
+    //<-----------Tile Damage Cooldown Coroutine------------------->
     private IEnumerator TileDamageCooldown(float interval)
     {
         while (isLosingHealth)
@@ -177,6 +230,8 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
     }
+
+    //<-------------Player is Dying Coroutine--------------------->
     private IEnumerator OnDie()
     {
         animator.SetFloat("Muerto", 3);
@@ -184,6 +239,23 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayOneShot(OnDeath);
         yield return new WaitForSeconds(1);
         Die();
+    }
+
+    //<---------Player is Invulnerable Coroutine------------------>
+    private IEnumerator Invulnerable()
+    {
+        //PONER ACA ANIMATOR Y AUDIO SOURCE PARA QUE SUENE
+        isInvulnerable = true;
+        gameObject.layer = 13;
+        yield return new WaitForSeconds(5);
+        gameObject.layer = 0;
+        isInvulnerable = false;
+    }
+    private IEnumerator InvulnerabilityTimer()
+    {
+        hasInvulnerability = false;
+        yield return new WaitForSeconds(30);
+        hasInvulnerability = true;
     }
 }
 

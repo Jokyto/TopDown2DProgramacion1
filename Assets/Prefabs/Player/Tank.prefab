@@ -84,11 +84,16 @@ MonoBehaviour:
   playerHealth: 10
   movementSpeed: 3
   rotationSpeed: 200
-  bulletSpeed: 10
   bulletPrefab: {fileID: 8989719135867793131, guid: 5e6a6f8106e0bd746a47e8b44c729909, type: 3}
   shotingPoint: {fileID: 7215330576620258894}
+  bulletSpeed: 10
   aquaPrefab: {fileID: 0}
+  OnDeath: {fileID: 0}
+  Shoot: {fileID: 0}
+  Object: {fileID: 0}
+  Win: {fileID: 0}
   sceneLoader: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!50 &9028102076958124703
 Rigidbody2D:
   serializedVersion: 4
