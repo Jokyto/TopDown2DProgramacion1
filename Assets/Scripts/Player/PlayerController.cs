@@ -155,8 +155,9 @@ public class PlayerController : MonoBehaviour
         //<------------------Colliding Ice------------------->
         if (collider.gameObject.layer == 14)
         {
-            previousMovementSpeed = movementSpeed;
-            movementSpeed = 1.5f;
+            rigidBody.velocity = new Vector2(5, rigidBody.velocity.y);
+            rigidBody.drag = 0.1f;
+
         }
 
     } 
@@ -191,7 +192,8 @@ public class PlayerController : MonoBehaviour
         //<------------------------Colliding with Ice---------------------------->
         if (collider.gameObject.layer == 14)
         {
-            movementSpeed = previousMovementSpeed;
+
+            rigidBody.drag = 0f;
         }
     }
 
