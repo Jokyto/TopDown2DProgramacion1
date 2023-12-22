@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip Shoot;
     [SerializeField] AudioClip Object;
     [SerializeField] AudioClip Win;
+    [SerializeField] AudioClip LevelUp;
+    [SerializeField] AudioClip Power;
+
 
     [Header("Scene Loader")] //SceneLoader
     public LoadScene sceneLoader;
@@ -129,12 +132,14 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.layer == 9)
         {
             bulletSpeed += 10;
+            audioSource.PlayOneShot(LevelUp);
             Destroy(collider.gameObject);
         }
         //<---------------Consumable TankSpeed--------------->
         if (collider.gameObject.layer == 10)
         {
             movementSpeed += 5;
+            audioSource.PlayOneShot(LevelUp);
             Destroy(collider.gameObject);
         }
         //<-----------------Consumable Engine---------------->
@@ -152,11 +157,11 @@ public class PlayerController : MonoBehaviour
             sceneLoader.LoadGivenScene("Victoria");
         }
         
-        //<------------------Colliding Ice------------------->
+        //<------------------Colliding Mud------------------->
         if (collider.gameObject.layer == 14)
         {
-            rigidBody.velocity = new Vector2(5, rigidBody.velocity.y);
-            rigidBody.drag = 0.1f;
+            movementSpeed = movementSpeed/2;
+            previousMovementSpeed = movementSpeed *2;
 
         }
 
@@ -189,11 +194,11 @@ public class PlayerController : MonoBehaviour
             gameObject.layer = 0;
         }
         
-        //<------------------------Colliding with Ice---------------------------->
+        //<------------------------Colliding with Mud---------------------------->
         if (collider.gameObject.layer == 14)
         {
 
-            rigidBody.drag = 0f;
+            movementSpeed = previousMovementSpeed;
         }
     }
 
